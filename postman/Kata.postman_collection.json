@@ -1,0 +1,106 @@
+{
+	"info": {
+		"_postman_id": "00fa3199-11b9-4a5d-ace7-55f456ad0135",
+		"name": "Kata",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "POST customer",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"let names = pm.collectionVariables.get(\"names\");",
+							"",
+							"if(!names || names.length == 0) {",
+							"    names = [\"Kr\", \"Ca\", \"Ra\", \"Mrok\", \"Cru\",",
+							"            \"Ray\", \"Bre\", \"Zed\", \"Drak\", \"Mor\", \"Jag\", \"Mer\", \"Jar\", \"Mjol\",",
+							"            \"Zork\", \"Mad\", \"Cry\", \"Zur\", \"Creo\", \"Azak\", \"Azur\", \"Rei\", \"Cro\",",
+							"            \"Mar\", \"Luk\" ];",
+							"}",
+							"",
+							"let name = names.shift();",
+							"pm.collectionVariables.set(\"name\", name);",
+							"pm.collectionVariables.set(\"names\", names);",
+							"",
+							"let types = pm.collectionVariables.get(\"types\");",
+							"if(!types || types.length == 0) {",
+							"    types = [\"STANDARD\", \"VIP\"];",
+							"}",
+							"",
+							"let type = types.shift();",
+							"pm.collectionVariables.set(\"type\", type);",
+							"pm.collectionVariables.set(\"types\", types);",
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"const names = pm.collectionVariables.get(\"names\");",
+							"",
+							"if (names && names.length > 0){",
+							"    postman.setNextRequest(\"Loop Post Parameter\");",
+							"} else {",
+							"    postman.setNextRequest(null);",
+							"}",
+							"",
+							"pm.test(\"Status code is 204\", function () {",
+							"    pm.response.to.have.status(204);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"name\": \"{{name}}\",\n  \"type\": \"{{type}}\"  \n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/customers",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"customers"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"variable": [
+		{
+			"key": "name",
+			"value": ""
+		},
+		{
+			"key": "names",
+			"value": ""
+		},
+		{
+			"key": "type",
+			"value": ""
+		},
+		{
+			"key": "types",
+			"value": ""
+		}
+	]
+}

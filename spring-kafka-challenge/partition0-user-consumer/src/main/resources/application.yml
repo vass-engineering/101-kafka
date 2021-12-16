@@ -1,0 +1,10 @@
+server:
+  port: 8082
+spring:
+  application:
+    name: partition0-user-consumer
+  jackson:
+    serialization:
+      fail-on-empty-beans: false
+      write-dates-as-timestamps: false
+    date-format: com.fasterxml.jackson.databind.util.ISO8601DateFormat
