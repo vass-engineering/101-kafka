@@ -16,7 +16,9 @@ import java.util.stream.StreamSupport;
 @Slf4j
 public class KafkaConsumer {
 
-    @KafkaListener(topicPattern = "${kafka.topics.customer-changed}", containerFactory = "kafkaListenerContainerFactory")
+    @KafkaListener(topicPattern = "${kafka.topics.customer-changed}",
+            containerFactory = "kafkaListenerContainerFactory",
+            groupId = "${spring.kafka.consumer.group-id}")
     public void listenToCustomerChange(ConsumerRecord<String, Customer> cr, @Payload Customer payload) {
         log.info("Logger 1 [JSON] received key {}: Type [{}] | Payload: {} | Record: {}", cr.key(),
                 typeIdHeader(cr.headers()), payload, cr.toString());
