@@ -8,3 +8,16 @@ spring:
       fail-on-empty-beans: false
       write-dates-as-timestamps: false
     date-format: com.fasterxml.jackson.databind.util.ISO8601DateFormat
+  kafka:
+    bootstrap-servers: kafka:9092
+    consumer:
+      group-id: challengeGroupPartition1
+      auto-offset-reset: earliest
+      properties:
+        spring.json.trusted.packages: '*'
+        spring.deserializer.key.delegate.class: org.apache.kafka.common.serialization.StringDeserializer
+        spring.deserializer.value.delegate.class: org.springframework.kafka.support.serializer.JsonDeserializer
+
+kafka:
+  topics:
+    customer-changed: challenge
